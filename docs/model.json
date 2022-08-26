@@ -1,0 +1,17 @@
+{
+  "expenses": {
+    "2022": {
+      "id": "12345",
+      "1 (number)": {
+        "transactions": [
+          { "name": "a", "value": 123, "category": 1 },
+          { "name": "b", "value": 123, "category": 1 }
+        ],
+        "savings": [
+          { "name": "a", "value": 123, "category": 1 },
+          { "name": "b", "value": 123, "category": 1 }
+        ]
+      }
+    }
+  }
+}

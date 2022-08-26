@@ -1,0 +1,76 @@
+name: myexpenses
+description: A new Flutter project.
+
+vars:
+  clean: flutter clean
+  get: flutter pub get
+  runner: flutter pub run build_runner
+scripts:
+  watch: $runner watch --delete-conflicting-outputs
+  build: $runner build --delete-conflicting-outputs
+  buildApk: $clean && $get && flutter build apk --release --target-platform android-arm
+
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  currency_text_input_formatter: ^2.1.7
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_mobx: ^2.0.6+1
+  flutter_modular: ^5.0.3
+  flutter_slidable: ^2.0.0
+  flutter_svg: ^1.1.4
+  google_fonts: ^3.0.1
+  group_button: ^5.0.1
+  intl: ^0.17.0
+  mobx: ^2.0.7+5
+  month_year_picker: ^0.2.0+2
+  persistent_bottom_nav_bar_v2: ^4.2.5
+  pie_chart: ^5.3.2
+  shared_preferences: ^2.0.15
+  sqflite: ^2.0.3+1
+
+dev_dependencies:
+  build_runner: ^2.2.0
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  mobx_codegen: ^2.0.7
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: false
+  ios: true
+  image_path: "assets/icons/logo_foreground.png"
+
+flutter:
+  uses-material-design: true
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/
+    - assets/icons/
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: San Francisco
+      fonts:
+        - asset: fonts/SFPRODISPLAYREGULAR.OTF
+    - family: CustomIcons
+      fonts:
+        - asset: fonts/Icons.ttf
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
