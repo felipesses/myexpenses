@@ -34,7 +34,7 @@
 
 ## ⚙️ Funcionalidades
 
-Confira no changelog
+Confira no <a href="./CHANGELOG.md">changelog</a>
 
 
 ## 🎨 Layout
