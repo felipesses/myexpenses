@@ -2,7 +2,6 @@
 
 <div flex-direction: row>
 <img src="https://raw.githubusercontent.com/felipesses/myexpenses/main/docs/images/dashboard.png"></img>
-<img src="https://raw.githubusercontent.com/felipesses/myexpenses/main/docs/images/expenses.png"></img>
 </div>
 
  
