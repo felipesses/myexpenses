@@ -6,7 +6,10 @@ Formato baseado no [Keep a Changelog](http://keepachangelog.com/)
  
 ## [1.0.0] - 26-08-2022
  
-Primeira versão do aplicativo.
+Primeira versão do aplicativo. 
+
+> [Confira aqui a release 1.0.0](https://github.com/felipesses/myexpenses/releases/tag/apk)
+
  
 ### [](https://emojiterra.com/pt/novo/)
 
