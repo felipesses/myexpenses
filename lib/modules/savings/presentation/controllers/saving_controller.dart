@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/app/presentation/controllers/loading_controller.dart';
 import 'package:myexpenses/modules/savings/domain/entities/saving_entity.dart';
 import 'package:myexpenses/modules/savings/domain/usecases/add_saving/add_saving_usecase.dart';
@@ -16,6 +18,7 @@ abstract class _SavingControllerBase with Store {
   final _updateSavingUsecase = Modular.get<UpdateSaving>();
   final _getSavings = Modular.get<GetSavingsByMonth>();
   final loading = Modular.get<LoadingController>();
+  final _authController = Modular.get<AuthController>();
 
   @observable
   List<SavingEntity>? savingList;
@@ -43,7 +46,11 @@ abstract class _SavingControllerBase with Store {
     String id,
     DateTime date,
   ) async {
-    savingList = await _getSavings(id, date);
+    var userId = '';
+
+    if (kIsWeb) userId = _authController.getUser();
+
+    savingList = await _getSavings(userId, date);
     calculateAllSavings();
   }
 

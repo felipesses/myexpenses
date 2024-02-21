@@ -1,4 +1,5 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -8,6 +9,7 @@ import 'package:group_button/group_button.dart';
 import 'package:myexpenses/components/app_dialog/dialog_manager.dart';
 import 'package:myexpenses/components/app_dialog/dialog_service.dart';
 import 'package:myexpenses/components/app_input/app_input.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/transactions/presentation/components/category_item.dart/category_item.dart';
 import 'package:myexpenses/modules/transactions/presentation/controllers/transactions_controller.dart';
 import 'package:myexpenses/modules/transactions/presentation/models/transaction_model.dart';
@@ -30,6 +32,7 @@ class AddTransactionsPage extends StatefulWidget {
 class _AddTransactionsPageState extends State<AddTransactionsPage> {
   final formKey = GlobalKey<FormState>();
   final controller = Modular.get<TransactionsController>();
+  final authController = Modular.get<AuthController>();
   TransactionModel transactionModel = TransactionModel.empty();
   final _dialogService = MyExpensesDialogService();
   final formatter = CurrencyTextInputFormatter(
@@ -273,6 +276,10 @@ class _AddTransactionsPageState extends State<AddTransactionsPage> {
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
+
+                  if (kIsWeb) {
+                    transactionModel.userId = authController.getUser();
+                  }
 
                   if (transactionModel.name.isEmpty ||
                       transactionModel.category == -1 ||

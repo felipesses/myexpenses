@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/app/presentation/controllers/loading_controller.dart';
 import 'package:myexpenses/modules/income/domain/entities/income_entity.dart';
 import 'package:myexpenses/modules/income/domain/usecases/add_income/add_income_usecase.dart';
@@ -16,6 +18,7 @@ abstract class _IncomeControllerBase with Store {
   final loading = Modular.get<LoadingController>();
   final _removeIncomeUsecase = Modular.get<RemoveIncome>();
   final _updateIncomeUsecase = Modular.get<UpdateIncome>();
+  final _authController = Modular.get<AuthController>();
 
   @observable
   List<IncomeEntity>? incomeList;
@@ -43,7 +46,11 @@ abstract class _IncomeControllerBase with Store {
     String id,
     DateTime date,
   ) async {
-    incomeList = await _getIncomeUsecase(id, date);
+    var userId = '';
+
+    if (kIsWeb) userId = _authController.getUser();
+
+    incomeList = await _getIncomeUsecase(userId, date);
     calculateAllTransactions();
   }
 

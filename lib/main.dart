@@ -6,7 +6,14 @@ import 'package:myexpenses/styles/colors.dart';
 
 import 'modules/app/presentation/app_module.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+
 void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/app/presentation/controllers/app_controller.dart';
 import 'package:myexpenses/modules/home/presentation/controllers/home_controller.dart';
 import 'package:myexpenses/modules/income/domain/entities/income_entity.dart';
@@ -26,12 +27,12 @@ class IncomePage extends StatefulWidget {
 class _IncomePageState extends State<IncomePage> {
   final controller = Modular.get<IncomeController>();
   final appController = Modular.get<AppController>();
+  final authController = Modular.get<AuthController>();
   final transactionsController = Modular.get<TransactionsController>();
   final homeController = Modular.get<HomeController>();
   final incomeController = Modular.get<IncomeController>();
   final savingsController = Modular.get<SavingController>();
 
-  @override
   updateControllers(DateTime dateTime) {
     transactionsController.getTransactionsbyMonth('1', dateTime);
     incomeController.getIncomebyMonth('1', dateTime);

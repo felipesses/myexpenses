@@ -9,10 +9,12 @@ class TransactionModel extends TransactionEntity {
     required super.month,
     required super.year,
     required super.emojiTitle,
+    required super.userId,
   });
 
   factory TransactionModel.empty() => TransactionModel(
-        id: 0,
+        id: '',
+        userId: '',
         name: '',
         value: -1,
         category: -1,

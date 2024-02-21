@@ -1,4 +1,5 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:myexpenses/components/app_dialog/dialog_manager.dart';
 import 'package:myexpenses/components/app_dialog/dialog_service.dart';
 import 'package:myexpenses/components/app_input/app_input.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/income/presentation/controllers/income_controller.dart';
 import 'package:myexpenses/modules/income/presentation/model/income_model.dart';
 import 'package:myexpenses/modules/income/presentation/pages/income_page.dart';
@@ -27,6 +29,7 @@ class AddIncomePage extends StatefulWidget {
 class _AddIncomePageState extends State<AddIncomePage> {
   final formKey = GlobalKey<FormState>();
   final controller = Modular.get<IncomeController>();
+  final authController = Modular.get<AuthController>();
   IncomeModel incomeModel = IncomeModel.empty();
   final _dialogService = MyExpensesDialogService();
   final formatter = CurrencyTextInputFormatter(
@@ -182,6 +185,8 @@ class _AddIncomePageState extends State<AddIncomePage> {
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
+
+                  if (kIsWeb) incomeModel.userId = authController.getUser();
 
                   if (incomeModel.name.isEmpty || incomeModel.value == -1) {
                     _dialogService.showDialog(

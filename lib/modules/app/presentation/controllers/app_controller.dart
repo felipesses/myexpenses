@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:myexpenses/modules/home/presentation/pages/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'app_controller.g.dart';
 
@@ -35,10 +34,18 @@ abstract class _AppControllerBase with Store {
     if (firstAccess == null) {
       prefs.setBool('firstAccess', false);
       prefs.setInt('month', DateTime.now().millisecondsSinceEpoch);
-      Modular.to.navigate(
-        '/home',
-        arguments: DateTime.now().millisecondsSinceEpoch,
-      );
+
+      if (kIsWeb) {
+        Modular.to.navigate(
+          '/auth',
+          arguments: DateTime.now().millisecondsSinceEpoch,
+        );
+      } else {
+        Modular.to.navigate(
+          '/home',
+          arguments: DateTime.now().millisecondsSinceEpoch,
+        );
+      }
     } else {
       final now = prefs.getInt('month');
       monthNow.value = now!;

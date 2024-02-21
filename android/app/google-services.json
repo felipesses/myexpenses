@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "522793023732",
+    "project_id": "myexpenses-9915b",
+    "storage_bucket": "myexpenses-9915b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522793023732:android:c46b469a583b5e58d346a1",
+        "android_client_info": {
+          "package_name": "com.felipemagalhaes.myexpenses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDELBGDJg7kc8_1uiJpKZwmn_VsUlcUAVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:myexpenses/components/app_dialog/dialog_manager.dart';
 import 'package:myexpenses/components/app_dialog/dialog_service.dart';
 import 'package:myexpenses/components/app_input/app_input.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/savings/presentation/controllers/saving_controller.dart';
 import 'package:myexpenses/modules/savings/presentation/models/saving_model.dart';
 import 'package:myexpenses/modules/savings/presentation/pages/savings_page.dart';
@@ -27,6 +29,7 @@ class AddSavingsPage extends StatefulWidget {
 class _AddSavingsPageState extends State<AddSavingsPage> {
   final formKey = GlobalKey<FormState>();
   final controller = Modular.get<SavingController>();
+  final authController = Modular.get<AuthController>();
   SavingModel savingModel = SavingModel.empty();
   final _dialogService = MyExpensesDialogService();
   final valueFormatter = CurrencyTextInputFormatter(
@@ -268,6 +271,8 @@ class _AddSavingsPageState extends State<AddSavingsPage> {
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
+
+                  if (kIsWeb) savingModel.userId = authController.getUser();
 
                   if (savingModel.name.isEmpty ||
                       savingModel.value == -1 ||

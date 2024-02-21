@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:myexpenses/modules/app/auth/presentation/controllers/auth_controller.dart';
 import 'package:myexpenses/modules/app/presentation/controllers/loading_controller.dart';
 import 'package:myexpenses/modules/transactions/domain/entities/transaction_entity.dart';
 import 'package:myexpenses/modules/transactions/domain/usecases/add_transaction/add_transaction_usecase.dart';
@@ -17,6 +19,7 @@ abstract class _TransactionsControllerBase with Store {
   final _getTransactionsUsecase = Modular.get<GetTransactionsByMonth>();
   final _removeTransactionUsecase = Modular.get<RemoveTransaction>();
   final loading = Modular.get<LoadingController>();
+  final _authController = Modular.get<AuthController>();
 
   @observable
   List<TransactionEntity>? transactionList;
@@ -44,7 +47,11 @@ abstract class _TransactionsControllerBase with Store {
     String id,
     DateTime date,
   ) async {
-    transactionList = await _getTransactionsUsecase(id, date);
+    var userId = '';
+
+    if (kIsWeb) userId = _authController.getUser();
+
+    transactionList = await _getTransactionsUsecase(userId, date);
     calculateAllTransactions();
   }
 

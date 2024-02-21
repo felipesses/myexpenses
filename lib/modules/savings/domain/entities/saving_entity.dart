@@ -1,5 +1,6 @@
 class SavingEntity {
-  int id;
+  String id;
+  String userId;
   String name;
   double value;
   double currentAmount;
@@ -9,6 +10,7 @@ class SavingEntity {
 
   SavingEntity({
     required this.id,
+    required this.userId,
     required this.name,
     required this.value,
     required this.currentAmount,

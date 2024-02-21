@@ -4,6 +4,7 @@ class TransactionAdapter {
   static TransactionEntity fromJson(dynamic json) {
     return TransactionEntity(
       id: json['id'],
+      userId: json['userId'],
       name: json['name'],
       value: json['value'],
       category: json['category'],
@@ -14,6 +15,8 @@ class TransactionAdapter {
   }
 
   static toJson(Map<String, dynamic> map) => {
+        'id': map['id'],
+        'userId': map['userId'],
         'name': map['name'],
         'value': map['value'],
         'month': map['month'],
