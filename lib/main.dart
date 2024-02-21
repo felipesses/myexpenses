@@ -8,12 +8,13 @@ import 'modules/app/presentation/app_module.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
+  setPathUrlStrategy();
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
 
