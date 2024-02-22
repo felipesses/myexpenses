@@ -5,6 +5,7 @@ class TransactionAdapter {
     return TransactionEntity(
       id: json['id'],
       userId: json['userId'],
+      docId: json['docId'],
       name: json['name'],
       value: json['value'],
       category: json['category'],

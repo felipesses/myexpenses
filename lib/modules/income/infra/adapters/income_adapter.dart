@@ -5,6 +5,7 @@ class IncomeAdapter {
     return IncomeEntity(
       id: json['id'],
       userId: json['userId'],
+      docId: json['docId'],
       name: json['name'],
       value: json['value'],
       month: json['month'],
@@ -15,6 +16,7 @@ class IncomeAdapter {
   static toJson(Map<String, dynamic> map) => {
         'id': map['id'],
         'userId': map['userId'],
+        'docId': map['docId'],
         'name': map['name'],
         'value': map['value'],
         'month': map['month'],

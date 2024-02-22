@@ -11,7 +11,9 @@ class TransactionsFirebaseDatasource implements ITransactionsDatasource {
     final firestore = FirebaseFirestore.instance;
     var uuid = Uuid();
 
-    await firestore.collection('transactions').add(
+    await firestore
+        .collection('transactions')
+        .add(
           TransactionAdapter.toJson(
             {
               'id': uuid.v4(),
@@ -24,7 +26,12 @@ class TransactionsFirebaseDatasource implements ITransactionsDatasource {
               'emojiTitle': transactionEntity.emojiTitle,
             },
           ),
-        );
+        )
+        .then((doc) async => {
+              await doc.update({
+                'docId': doc.id,
+              })
+            });
   }
 
   @override
@@ -60,7 +67,7 @@ class TransactionsFirebaseDatasource implements ITransactionsDatasource {
     try {
       return await firestore
           .collection('transactions')
-          .doc(transactionEntity.id)
+          .doc(transactionEntity.docId)
           .delete();
     } catch (e) {
       throw Error();
@@ -72,9 +79,15 @@ class TransactionsFirebaseDatasource implements ITransactionsDatasource {
       String id, TransactionEntity transactionEntity) async {
     final firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('transactions').doc(transactionEntity.id).update(
+    await firestore
+        .collection('transactions')
+        .doc(transactionEntity.docId)
+        .update(
           TransactionAdapter.toJson(
             {
+              'id': transactionEntity.id,
+              'userId': transactionEntity.userId,
+              'docId': transactionEntity.docId,
               'name': transactionEntity.name,
               'value': transactionEntity.value,
               'category': transactionEntity.category,

@@ -3,6 +3,7 @@ import 'package:myexpenses/modules/transactions/domain/entities/transaction_enti
 class TransactionModel extends TransactionEntity {
   TransactionModel({
     required super.id,
+    required super.docId,
     required super.name,
     required super.value,
     required super.category,
@@ -14,6 +15,7 @@ class TransactionModel extends TransactionEntity {
 
   factory TransactionModel.empty() => TransactionModel(
         id: '',
+        docId: '',
         userId: '',
         name: '',
         value: -1,

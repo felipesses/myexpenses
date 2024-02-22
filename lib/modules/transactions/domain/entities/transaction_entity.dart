@@ -1,6 +1,7 @@
 class TransactionEntity {
   String id;
   String userId;
+  String docId;
   String name;
   double value;
   int category;
@@ -11,6 +12,7 @@ class TransactionEntity {
   TransactionEntity({
     required this.id,
     required this.userId,
+    required this.docId,
     required this.name,
     required this.value,
     required this.category,

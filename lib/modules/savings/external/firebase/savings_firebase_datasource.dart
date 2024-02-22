@@ -10,7 +10,9 @@ class SavingsFirebaseDatasource implements ISavingsDatasource {
     final firestore = FirebaseFirestore.instance;
     var uuid = Uuid();
 
-    await firestore.collection('savings').add(
+    await firestore
+        .collection('savings')
+        .add(
           SavingAdapter.toJson(
             {
               'id': uuid.v4(),
@@ -23,7 +25,12 @@ class SavingsFirebaseDatasource implements ISavingsDatasource {
               'currentAmount': savingEntity.currentAmount,
             },
           ),
-        );
+        )
+        .then((doc) async => {
+              await doc.update({
+                'docId': doc.id,
+              })
+            });
   }
 
   @override
@@ -57,7 +64,7 @@ class SavingsFirebaseDatasource implements ISavingsDatasource {
     try {
       return await firestore
           .collection('savings')
-          .doc(savingEntity.id)
+          .doc(savingEntity.docId)
           .delete();
     } catch (e) {
       throw Error();
@@ -68,9 +75,12 @@ class SavingsFirebaseDatasource implements ISavingsDatasource {
   Future<void> updateSaving(String id, SavingEntity savingEntity) async {
     final firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('savings').doc(savingEntity.id).update(
+    await firestore.collection('savings').doc(savingEntity.docId).update(
           SavingAdapter.toJson(
             {
+              'id': savingEntity.id,
+              'userId': savingEntity.userId,
+              'docId': savingEntity.docId,
               'name': savingEntity.name,
               'value': savingEntity.value,
               'month': savingEntity.month,

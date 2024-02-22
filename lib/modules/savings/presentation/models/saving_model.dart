@@ -4,6 +4,7 @@ class SavingModel extends SavingEntity {
   SavingModel({
     required super.id,
     required super.userId,
+    required super.docId,
     required super.name,
     required super.value,
     required super.month,
@@ -15,6 +16,7 @@ class SavingModel extends SavingEntity {
   factory SavingModel.empty() => SavingModel(
         id: '',
         userId: '',
+        docId: '',
         name: '',
         value: -1,
         month: 0,

@@ -5,6 +5,7 @@ class SavingAdapter {
     return SavingEntity(
       id: json['id'],
       userId: json['userId'],
+      docId: json['docId'],
       name: json['name'],
       value: json['value'],
       objective: json['objective'],
@@ -17,6 +18,7 @@ class SavingAdapter {
   static toJson(Map<String, dynamic> map) => {
         'id': map['id'],
         'userId': map['userId'],
+        'docId': map['docId'],
         'name': map['name'],
         'value': map['value'],
         'month': map['month'],

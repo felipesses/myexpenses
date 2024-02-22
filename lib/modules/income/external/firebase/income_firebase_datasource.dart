@@ -10,7 +10,9 @@ class IncomeFirebaseDatasource implements IIncomeDatasource {
     final firestore = FirebaseFirestore.instance;
     var uuid = Uuid();
 
-    await firestore.collection('income').add(
+    await firestore
+        .collection('income')
+        .add(
           IncomeAdapter.toJson(
             {
               'id': uuid.v4(),
@@ -21,7 +23,12 @@ class IncomeFirebaseDatasource implements IIncomeDatasource {
               'year': date.year,
             },
           ),
-        );
+        )
+        .then((doc) async => {
+              await doc.update({
+                'docId': doc.id,
+              })
+            });
   }
 
   @override
@@ -53,7 +60,10 @@ class IncomeFirebaseDatasource implements IIncomeDatasource {
     final firestore = FirebaseFirestore.instance;
 
     try {
-      return await firestore.collection('income').doc(incomeEntity.id).delete();
+      return await firestore
+          .collection('income')
+          .doc(incomeEntity.docId)
+          .delete();
     } catch (e) {
       throw Error();
     }
@@ -63,9 +73,12 @@ class IncomeFirebaseDatasource implements IIncomeDatasource {
   Future<void> updateIncome(String id, IncomeEntity incomeEntity) async {
     final firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('income').doc(incomeEntity.id).update(
+    await firestore.collection('income').doc(incomeEntity.docId).update(
           IncomeAdapter.toJson(
             {
+              'id': incomeEntity.id,
+              'userId': incomeEntity.userId,
+              'docId': incomeEntity.docId,
               'name': incomeEntity.name,
               'value': incomeEntity.value,
               'month': incomeEntity.month,
